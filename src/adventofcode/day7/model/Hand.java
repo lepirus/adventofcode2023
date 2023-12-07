@@ -45,9 +45,26 @@ public class Hand implements Comparable<Hand> {
 
     private HandType calculateHandType() {
         Map<Card, Integer> counter = new HashMap<>();
+        int jokers = 0;
+        Card maxCard = null;
+        int maxValue = 0;
 
         for (Card card : this.cards) {
-            counter.put(card, counter.getOrDefault(card, 0) + 1);
+            if (card.label == 'J') {
+                jokers++;
+            } else {
+                counter.put(card, counter.getOrDefault(card, 0) + 1);
+            }
+        }
+
+        if (jokers > 0) {
+            for (Map.Entry<Card, Integer> entry : counter.entrySet()) {
+                if (entry.getValue() > maxValue) {
+                    maxCard = entry.getKey();
+                    maxValue = entry.getValue();
+                }
+            }
+            counter.put(maxCard, counter.getOrDefault(maxCard, 0) + jokers);
         }
 
         return switch (counter.size()) {

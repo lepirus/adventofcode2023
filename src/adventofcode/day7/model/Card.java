@@ -39,7 +39,7 @@ public class Card implements Comparable<Card> {
             case 'A' -> 14;
             case 'K' -> 13;
             case 'Q' -> 12;
-            case 'J' -> 11;
+            case 'J' -> 1;
             case 'T' -> 10;
             default -> this.label - '0';
         };
